@@ -30,7 +30,9 @@ Example Playbook
 Issues
 ------
 
-- Selinux module fails if selinux is not installed [#21622 ](https://github.com/ansible/ansible/issues/21622)
+- Selinux module fails if selinux is not installed [#21622 ](https://github.com/ansible/ansible/issues/21622). Do a stat check on selinux config file
+- Ubuntu 12.04 older version of Jinj2=2.2 is causing [issues with ansible2.2](https://github.com/ansible/ansible/issues/20309) 
+- Ubuntu 16.04 ansible_default_ipv4_address is not retrieved by ansible_facts.
 
 
 License
