@@ -1,0 +1,50 @@
+---
+
+- name: Configure leap seconds 
+  get_url:
+    url: "{{ ntpd_leap_seconds_url }}"
+    dest: "{{ ntpd_leap_file }}"
+    force: yes
+
+- name: Set the correct timezone.
+  file:
+    src: "/usr/share/zoneinfo/{{ ntp_timezone }}"
+    dest: /etc/localtime
+    state: link
+    force: yes
+
+# Debian family OSes also have an /etc/timezone file.
+- name: Set timezone in /etc/timezone file.
+  lineinfile:
+    dest: /etc/timezone
+    line: "{{ ntp_timezone }}"
+    create: yes
+    state: present
+  when: "{{ ansible_os_family == 'Debian' }}"
+
+- name: Configure NTP 
+  template: src=ntp.conf.j2 dest="{{ ntpd_conf_file }}"  owner=root group=root mode=0644 backup=yes
+  notify: Restart ntpd
+
+# http://www.serveridol.com/2011/02/14/ntp-ntpd-dead-but-subsys-locked/
+# Disable running NTP pid as ntp:ntp 
+- name : Configure NTP pid
+  lineinfile : 
+    dest: '/etc/sysconfig/ntpd'
+    regexp: '^OPTIONS="-u ntp:ntp -p /var/run/ntpd.pid '
+    backup: yes
+    state: absent
+  notify: Restart ntpd
+
+- meta: flush_handlers
+
+- name: Ensure NTP is started and enabled
+  service: name="{{ ntp_service_name }}" state=started enabled=yes
+
+- name: Ensure NTP Synchronised
+  shell: ntpq -p || ntpstat
+  register: ntpcheck
+  changed_when: False
+  until: "{{ ntpcheck.rc == 0 }}"
+  retries: 4
+  delay: 10

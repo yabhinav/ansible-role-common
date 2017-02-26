@@ -18,9 +18,9 @@ galaxy_info:
         - 25
     - name: Ubuntu
       versions:
-        # - precise #bug @see https://github.com/ansible/ansible/issues/20309
+        - precise 
         - trusty
-        # - xenial # ansible_default_ipv4 not working
+        - xenial 
     - name: Debian
       versions:
         - jessie

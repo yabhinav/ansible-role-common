@@ -1,49 +1,41 @@
-# Add the VMWare tinker recommendation here
+# NTP configuration Ansible Managed
 
-driftfile /var/lib/ntp/drift
+driftfile {{ ntpd_drift_file }}
 
-# Permit time synchronization with our time source, but do not
-# permit the source to query or modify the service on this system.
-#restrict default kod nomodify notrap nopeer noquery
-#restrict -6 default kod nomodify notrap nopeer noquery
+leapfile {{ ntpd_leap_file }}
 
-# The restrict line below is a Unix Security standard.
-restrict default ignore
+statdir /var/log/ntpstats/
 
-# Permit all access over the loopback interface.  This could
-# be tightened as well, but to do so would effect some of
-# the administrative functions.
-restrict {{ ansible_default_ipv4.address | default(ansible_eth0.ipv4.address) }} mask 255.255.255.0 nomodify notrap
+statistics loopstats peerstats clockstats
+filegen loopstats file loopstats type day enable
+filegen peerstats file peerstats type day enable
+filegen clockstats file clockstats type day enable
 
 # Use public servers from the pool.ntp.org project.
 # Please consider joining the pool (http://www.pool.ntp.org/join.html).
-server 0.pool.ntp.org iburst
-server 1.pool.ntp.org iburst
-server 2.pool.ntp.org iburst
-server 3.pool.ntp.org iburst
+{% for item in ntp_servers %}
+server {{ item }}
+{% endfor %}
 
-# Undisciplined Local Clock. This is a fake driver intended for backup
-# and when no outside source of synchronized time is available.
-#server 127.127.1.0     # local clock
-#fudge  127.127.1.0 stratum 10
+# Prohibit general access to this service.
+#restrict -4 default ignore
+#restrict -6 default ignore
 
-# Enable public key cryptography.
-#crypto
+# Permit time synchronization with our time source, but do not
+# permit the source to query or modify the service on this system.
+restrict -4 default nomodify nopeer noquery notrap
+restrict -6 default nomodify nopeer noquery notrap
 
-includefile /etc/ntp/crypto/pw
+## Restrict eth0 ip
 
-# Key file containing the keys and key identifiers used when operating
-# with symmetric key cryptography.
-keys /etc/ntp/keys
+# Permit systems on this network to synchronize with this
+# time service. But not modify our time.
+{# {% for item in ntp_restrict %}
+restrict {{ item }} nomodify
+{% endfor %} #}
 
-# Specify the key identifiers which are trusted.
-#trustedkey 4 8 42
+# Allow the following unrestricted access to ntpd from systems in these networks
+{% for item in ntp_restrict %}
+restrict {{ item }} 
+{% endfor %}
 
-# Specify the key identifier to use with the ntpdc utility.
-#requestkey 8
-
-# Specify the key identifier to use with the ntpq utility.
-#controlkey 8
-
-# Enable writing of statistics records.
-#statistics clockstats cryptostats loopstats peerstats

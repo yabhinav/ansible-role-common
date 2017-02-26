@@ -1,0 +1,22 @@
+---
+
+ntp_enabled: true
+
+ntp_timezone: Etc/UTC
+
+# NTP server area configuration (leave empty for 'Worldwide').
+# See: http://support.ntp.org/bin/view/Servers/NTPPoolServers
+ntp_area: ''
+ntp_servers:
+  - "0{{ ntp_area }}.pool.ntp.org iburst"
+  - "1{{ ntp_area }}.pool.ntp.org iburst"
+  - "2{{ ntp_area }}.pool.ntp.org iburst"
+  - "3{{ ntp_area }}.pool.ntp.org iburst"
+
+ntp_restrict:
+  - "{{ ansible_default_ipv4.address | default(ansible_eth0.ipv4.address) }}"  
+  - "127.0.0.1" 
+  - "::1"
+
+
+ntpd_leap_seconds_url: "https://www.ietf.org/timezones/data/leap-seconds.list"

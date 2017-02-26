@@ -21,4 +21,9 @@ ntpd_conf_file : /etc/ntp.conf
 ntpd_drift_file : /var/lib/ntp/drift
 ntpd_leap_file: /var/lib/ntp/leap-seconds.list
 
-# firewall_service: ufw
+
+# Fix for this version ansible_default_ipv4 not working on first run in ubuntu 16.04 because network variables are not read properly in docker test image
+ntp_restrict:
+  # - "{{ ansible_default_ipv4.address | default(ansible_eth0.ipv4.address) }}"  
+  - "127.0.0.1" 
+  - "::1"

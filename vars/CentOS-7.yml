@@ -2,23 +2,25 @@
 
 # Default Common Purposed Linux Packages Required/Optional on all Hosts
 common_pkgs:
+      - libselinux-python
+      - iptables-services
       - python-keyczar
       - ntp
-      - ntpdate
-      - net-tools
       - wget
       - screen
       - openssl  
+      - pyOpenSSL
       - python-pyasn1 
+      - nss
       - expect
 
-
-# Ubuntu/Debian NTP service
-ntp_service_name: ntp
+# RedHat NTP service
+ntp_service_name: ntpd
 
 # NTP Configuration files
 ntpd_conf_file : /etc/ntp.conf
 ntpd_drift_file : /var/lib/ntp/drift
 ntpd_leap_file: /var/lib/ntp/leap-seconds.list
 
-# firewall_service: ufw
+# RedHat Firwall Service
+firewall_service: iptables
