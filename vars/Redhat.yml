@@ -1,0 +1,20 @@
+---
+
+# Default Common Purposed Linux Packages Required/Optional on all Hosts
+common_pkgs:
+      - libselinux-python
+      - python-keyczar
+      - ntp
+      - wget
+      - screen
+      - openssl  
+      - pyOpenSSL
+      - python-pyasn1 
+      - nss
+      - expect
+
+# RedHat NTP service
+ntp_service_name: ntpd
+
+# RedHat Firwall Service
+firewall_service: iptables

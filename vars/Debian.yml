@@ -1,0 +1,18 @@
+---
+
+# Default Common Purposed Linux Packages Required/Optional on all Hosts
+common_pkgs:
+      - python-keyczar
+      - ntp
+      - ntpdate
+      - wget
+      - screen
+      - openssl  
+      - python-pyasn1 
+      - expect
+
+
+
+# Ubuntu/Debian NTP service
+ntp_service_name: ntp
+

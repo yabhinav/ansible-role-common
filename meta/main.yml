@@ -1,0 +1,32 @@
+galaxy_info:
+  author: Abhinav Yalamanchili
+  description: Install a common configurations for RHEL/CentOS/Fedora and Debian/Ubuntu. Used by my other roles
+
+  license: MIT
+
+  min_ansible_version: 1.9.6
+
+  github_branch: master
+
+  platforms:
+    - name: EL
+      versions:
+        - 6
+        - 7
+    - name: Fedora
+      versions:
+        - 25
+    - name: Ubuntu
+      versions:
+        - precise #bug in 
+        - trusty
+        - xenial
+    - name: Debian
+      versions:
+        - jessie
+        - wheezy
+
+  galaxy_tags: ['system','ntp', 'selinux', '/etc/hosts']
+
+
+dependencies: []
