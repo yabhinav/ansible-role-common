@@ -1,4 +1,6 @@
-Ansible Role: Common Generic Tasks
+[![Build Status](https://travis-ci.org/yabhinav/ansible-role-common.svg?branch=master)](https://travis-ci.org/yabhinav/ansible-role-common)
+
+Ansible Role: Common Generic Tasks 
 =================================
 This role performs generic specific tasks required by other roles like :
 
