@@ -10,6 +10,8 @@ common_pkgs:
       - screen
       - openssl  
       - python-pyasn1 
+      - python-openssl
+      - ca-certificates
       - expect
 
 

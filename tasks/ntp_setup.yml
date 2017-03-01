@@ -5,7 +5,6 @@
     url: "{{ ntpd_leap_seconds_url }}"
     dest: "{{ ntpd_leap_file }}"
     force: yes
-    validate_certs: no #will be removed once debian docker images have pyopenssl
 
 - name: Set the correct timezone.
   file:
