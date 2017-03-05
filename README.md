@@ -35,7 +35,6 @@ Issues
 
 - Selinux module fails if selinux is not installed [#21622 ](https://github.com/ansible/ansible/issues/21622). Do a stat check if selinux config file exists or use ansible_selinux which tells if selinux is present ( and not enabled or running)
 - Ubuntu 12.04 older version of Jinj2=2.2 is causing [issues with ansible2.2](https://github.com/ansible/ansible/issues/20309). Use  variables with full quotes as mentioned [here](https://github.com/yabhinav/ansible-role-common/issues/1)
-- Ubuntu 16.04 ansible_default_ipv4_address is not retrieved by ansible_facts. Use 127.0.0.1 instead
 
 
 License

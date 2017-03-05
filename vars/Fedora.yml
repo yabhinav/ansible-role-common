@@ -3,7 +3,6 @@
 # Default Common Purposed Linux Packages Required/Optional on all Hosts
 common_pkgs:
       - libselinux-python
-      - iptables-services
       - python-keyczar
       - ntp
       - wget
