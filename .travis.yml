@@ -4,7 +4,7 @@
 sudo: required
 
 env:
-  global: 
+  global:
     - rolename : ansible-role-common
   matrix:
     - distribution: centos       # Linux Distribution
@@ -14,15 +14,17 @@ env:
     - distribution: fedora
       version: 25
     - distribution: ubuntu
-      version: 12.04
-    - distribution: ubuntu
       version: 14.04
     - distribution: ubuntu
       version: 16.04
-    - distribution: debian
-      version: 7
+    - distribution: ubuntu
+      version: 18.04
     - distribution: debian
       version: 8
+    - distribution: debian
+      version: 9
+    - distribution: debian
+      version: 10
 
 
 services: docker
@@ -39,7 +41,7 @@ before_install:
 before_script:
   # Fetch the latest test code for the role
   - 'git clone --depth 1 https://github.com/yabhinav/ansible-test-suite'
-  - 'mv ansible-test-suite/$rolename/* . &&  rm -rf ansible-test-suite ' 
+  - 'mv ansible-test-suite/$rolename/* . &&  rm -rf ansible-test-suite '
 
 script:
   - docker version
